@@ -2,7 +2,7 @@
 
 This NASA Snapshot Website is a web application that allows users to explore NASA's Astronomy Picture of the Day (APOD) for any date. It retrieves data from the NASA APOD API and displays images, videos, and descriptions related to celestial phenomena.
 
-![NASA Snapshot Website Screenshot](./images/screenshot.png)
+![NASA Snapshot Website Screenshot](mybirthdayimage.png)
 
 ## Features
 
