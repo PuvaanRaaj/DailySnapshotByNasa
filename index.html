@@ -209,7 +209,7 @@
 
   let date_picker_date = document.getElementById("date_picker").value;
   let url = "https://api.nasa.gov/planetary/apod?";
-  let apiKey = "api_key=7UVoquuyiS29z3bMTIAHVpDWoAGsLPO9LPbg3i6F";
+   let apiKey = process.env.NASA_API_KEY; //saved in netlify Enviroment for security
   let queryDate = "date" + "=" + date_picker_date + "&";
 
   let fullUrl = url + apiKey + "&" + queryDate;
