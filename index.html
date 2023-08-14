@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Daily Snapshot By Nasa - Puvaan Raaj</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+
+    <style>
+      /* Additional CSS styling */
+      body {
+      background-color: #f8f9fa;
+    }
+    
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Flexbox layout for image and details */
+    .row {
+      display: flex;
+      align-items: flex-start; /* Align items at the top */
+    }
+
+    #wrapper-media {
+      flex: 1; /* Allow flexibility for equal space distribution */
+      margin-right: 20px;
+    }
+
+    #wrapper-image {
+      max-width: 100%;
+      height: auto;
+      display: block; /* Fix for removing extra space below inline-block elements */
+    }
+
+    #wrapper-details {
+      flex: 1; /* Allow flexibility for equal space distribution */
+    }
+
+    #wrapper-title {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    #wrapper-explanation {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+      
+      #footer {
+        text-align: center;
+        margin-top: 30px;
+      }
+      
+      #footer .social-icons {
+        font-size: 24px;
+        margin-top: 10px;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <!-- Start your project here-->
+    <div class="container my-5">
+      <label for="date-picker" class="form-label">Select your date</label>
+      <div class="form-outline mb-4">
+        
+        <input type="date" class="form-control" id="date_picker">
+      </div>
+  
+      <div class="row">
+        <div id="wrapper-media">
+          <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-mdb-ripple-color="light">
+            <img src="" id="wrapper-image" class="w-100" alt="Image from NASA" />
+            <a id="wrapper-hdurl" href="#!" target="_blank">
+              <div class="mask" style="background-color: hsla(0, 0%, 98%, 0.2)"></div>
+            </a>
+          </div>
+        </div>
+  
+        <div id="wrapper-details">
+          <h5 id="wrapper-title"></h5>
+          <p class="mb-2 text-muted">
+            Copyright: <span id="wrapper-copyright"></span>
+          </p>
+          <p id="wrapper-explanation"></p>
+        </div>
+      </div>
+
+
+      <div id="footer">
+        <p>&copy; 2023 Puvaan Raaj. All rights reserved.</p>
+        <div class="social-icons">
+          <a href="https://github.com/PuvaanRaaj" target="_blank"><i class="fab fa-github" style="color: black;"></i></a>
+          <a href="https://www.linkedin.com/in/puvaan-raaj/" target="_blank"><i class="fab fa-linkedin" style="color: black;"></i></a>
+        </div>
+      </div>
+
+  
+
+  
+    <!-- End your project here-->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
+  </body>
+</html>
+
+<script>
+  document.getElementById("date_picker").addEventListener("change", function () {
+    const selectedDate = formatDate(this.value); // Format the selected date
+    fetchNASAData(selectedDate);
+  });
+
+   // Set today's date as the default value for the date picker
+   const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedToday = `${year}-${month}-${day}`;
+
+  document.getElementById("date_picker").value = formattedToday;
+
+  // Fetch NASA data with default date
+  fetchNASAData(formattedToday);
+
+  function formatDate(inputDate) {
+    const date = new Date(inputDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  function fetchNASAData(date) {
+    let xmlHttp = new XMLHttpRequest();
+
+    xmlHttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let data = JSON.parse(this.responseText);
+
+      let copyright = data["copyright"];
+      let date = data["date"];
+      let explanation = data["explanation"];
+      let hdurl = data["hdurl"];
+      let media_type = data["media_type"];
+      let service_version = data["service_version"];
+      let title = data["title"];
+      let url = data["url"];
+
+      let imageType = `<div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-mdb-ripple-color="light">
+          <img src="" id="wrapper-image" class="w-100" alt="Louvre" />
+          <a id="wrapper-hdurl" href="#!" target="_blank">
+            <div class="mask" style="background-color: hsla(0, 0%, 98%, 0.2)"></div>
+          </a>
+        </div>`;
+
+      let videoType = `<div class="ratio ratio-16x9">
+                        <iframe
+                          id="wrapper-video"
+                          src=""
+                          title="YouTube video"
+                          allowfullscreen
+                        ></iframe>
+                      </div>`;
+
+      // document.getElementById("wrapper-url").src = url;
+
+      document.getElementById("wrapper-title").innerHTML = title;
+      document.getElementById("wrapper-explanation").innerHTML = explanation;
+      document.getElementById("wrapper-copyright").innerHTML = 
+        "NASA" + " | " + date + " | " + service_version;
+
+      // document.getElementById("wrapper-hdurl").href = hdurl;
+
+      if (media_type == "video") {
+        document.getElementById("wrapper-media").innerHTML = videoType;
+        document.getElementById("wrapper-video").src = url;
+      } else {
+        document.getElementById("wrapper-media").innerHTML = imageType;
+        document.getElementById("wrapper-image").src = url;
+        document.getElementById("wrapper-hdurl").href = hdurl;
+      }
+    }
+  };
+
+  let date_picker_date = document.getElementById("date_picker").value;
+  let url = "https://api.nasa.gov/planetary/apod?";
+  let apiKey = "api_key=7UVoquuyiS29z3bMTIAHVpDWoAGsLPO9LPbg3i6F";
+  let queryDate = "date" + "=" + date_picker_date + "&";
+
+  let fullUrl = url + apiKey + "&" + queryDate;
+
+  xmlHttp.open("GET", fullUrl, true);
+  xmlHttp.send();
+}
+</script>
