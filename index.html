@@ -211,7 +211,7 @@
       </div>
 
       <div id="footer">
-        <p>&copy; 2023 Puvaan Raaj. All rights reserved.</p>
+        <p>&copy; <span id="current-year"></span> Puvaan Raaj. All rights reserved.</p>
         <div class="social-icons">
           <a href="https://github.com/PuvaanRaaj" target="_blank"
             ><i class="fab fa-github" style="color: white"></i
@@ -337,6 +337,9 @@
         body.classList.remove("dark-mode");
         body.classList.add("light-mode");
       }
+
+      // Set current year
+      document.getElementById("current-year").textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
